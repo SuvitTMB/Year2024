@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 
 async function main() {
-  await liff.init({ liffId: "1657509542-jLEpKq6y" });
+  await liff.init({ liffId: "1657509542-rk7MOkgj" });
   document.getElementById("isLoggedIn").append(liff.isLoggedIn());
   if(liff.isLoggedIn()) {
     getUserProfile();
