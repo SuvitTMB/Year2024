@@ -305,7 +305,7 @@ function BeforeSend() {
   str += '</div>';
   str += '<center>';
   //str += '<div class="btn-t2" onClick="CaptureImg()" style="margin:20px auto; margin-right:6px;">บันทึกรูปภาพ</div>';
-  str += '<div class="btn-t2" onClick="CloseAll()" style="margin:20px auto; margin-right:6px;">ส่งการ์ดอีกครั้ง</div>';
+  str += '<div class="btn-t2" onClick="CaptureImg()" style="margin:20px auto; margin-right:6px;">ส่งการ์ดอีกครั้ง</div>';
   str += '<div class="btn-t2" onClick="gotoOnline()" style="margin:20px auto;">ดูคำอวยพรของเพื่อนๆ</div>';
   str += '</center>';
   $("#BeforeSend").html(str);
