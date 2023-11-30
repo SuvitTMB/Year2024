@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="assets/img/favicom.ico" rel="icon">
+  <title>LINE Retail Society</title>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PW7HPDW');</script>
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/button.css" rel="stylesheet">
+  <link href="assets/css/css.css" rel="stylesheet">
+  <link href="assets/css/w3.css" rel="stylesheet">
+  <link href="assets/css/moon.css" rel="stylesheet">
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript">
+      var speed=60; // lower number for faster
+      var flakes=100; // number of flakes
+      var colour="#fff"; // colour of flakes
+      var slush=20; // set to '0' for no slush or otherwise set to height at which slush melts
+      var flks=new Array();
+      var flkx=new Array();
+      var flky=new Array();
+      var fldy=new Array();
+      var slss=new Array();
+      var slsh=new Array();
+      var swide, shigh, boddie;
+      window.onload=function() { if (document.getElementById) {
+        boddie=document.createElement("div");
+        boddie.style.position="fixed";
+        boddie.style.top="0px";
+        boddie.style.left="0px";
+        boddie.style.width="1px";
+        boddie.style.height="1px";
+        boddie.style.overflow="visible";
+        boddie.style.backgroundColor="transparent";
+        document.body.appendChild(boddie);
+        set_width();
+        for (var i=0; i<flakes; i++) {
+          flks[i]=createDiv(3, 3, colour);
+          flkx[i]=3*Math.floor(Math.random()*swide/3);
+          flky[i]=Math.floor(Math.random()*shigh);
+          fldy[i]=2+Math.floor(Math.random()*4);
+          flks[i].style.left=flkx[i]+"px";
+          flks[i].style.top=flky[i]+"px";
+          boddie.appendChild(flks[i]);
+        }
+        setInterval("let_it_snow()", speed);
+      }}
+      function createDiv(height, width, colour) {
+        var div=document.createElement("div");
+        div.style.position="absolute";
+        div.style.height=height+"px";
+        div.style.width=width+"px";
+        div.style.overflow="hidden";
+        div.style.backgroundColor=colour;
+        return (div);
+      }
+      window.onresize=set_width;
+      function set_width() {
+        var sw_min=999999;
+        var sh_min=999999;
+        if (document.documentElement && document.documentElement.clientWidth) {
+          if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+          if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+        }
+        if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+          if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+          if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+        }
+        if (document.body.clientWidth) {
+          if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+          if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+        }
+        if (sw_min==999999 || sh_min==999999) {
+          sw_min=800;
+          sh_min=600;
+        }
+        swide=sw_min-3;
+        shigh=sh_min+400;
+        if (slush) {
+          if (swide/3>slss.length) for (i=slss.length; i<swide/3; i++) {
+            if (!slsh[i]) slsh[i]=3;
+            slss[i]=createDiv(slsh[i], 3, colour);
+            boddie.appendChild(slss[i]);
+          }
+          for (i=0; i<swide/3; i++) {
+            slss[i].style.height=slsh[i]+"px";
+            slss[i].style.top=shigh-slsh[i]+"px";
+            slss[i].style.left=3*i+"px";
+          }
+          if (i<slss.length && slss[i].style.left!="-3px") for (; i<slss.length; i++) slss[i].style.left="-3px";
+        }
+      }
+      function let_it_snow(c) {
+        var i, x, o=0, z=0;
+        for (i=0; i<flakes; i++) {
+          flky[i]+=fldy[i];
+       x=Math.floor(flkx[i]/3);
+          if (slush) {
+            o+=slsh[x];
+            if (flky[i]>=shigh-slsh[x]) {
+              if (x<swide && slsh[x]>slsh[x+1]+3) x++;
+              else if (x>0 && slsh[x]>slsh[x-1]+3) x--;
+              slss[x].style.top=shigh-(slsh[x]+=3)+"px";
+              slss[x].style.height=slsh[x]+"px";
+        flky[i]=shigh;
+         }
+          }
+          if (flky[i]>=shigh || flkx[i]>swide) {
+         flky[i]=0;
+         fldy[i]=2+Math.floor(Math.random()*4);
+         flkx[i]=3*Math.floor(Math.random()*swide/3);
+         flks[i].style.left=flkx[i]+"px";
+         z++;
+       }
+       flks[i].style.top=flky[i]+"px";
+        }
+        if (o>flakes*slush) for (i=0; i<slsh.length; i++) if (slsh[i]>3) slsh[i]--;
+        if (z || o>flakes*slush) set_width();
+      }
+  </script></head>
+
+<!--<body style="background: url(./img/bg.jpg) fixed; background-size: cover;background-position: center;">-->
+<body style="background: #2296de;">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW7HPDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+  <audio id="myaudio1" controls autoplay loop style="display: none;">
+    <source src="./mp3/silent-night.mp3" type="audio/mpeg">
+    <source src="./mp3/silent-night.mp3">
+  </audio>
+  <audio id="myaudio2" controls autoplay loop style="display: none;">
+    <source src="./mp3/newyear.mp3" type="audio/mpeg">
+    <source src="./mp3/newyear.mp3">
+  </audio>
+
+
+  <div class="navbar1" style="background: #ffd2d2;">
+    <div style="background: #003cb2; height: 75px;border-top: 1px solid #fff;">
+      <div style="max-width: 400px; margin:auto; text-align: center;">
+        <div class="iconlink" onClick="window.location='home.html';">
+          <div><img src="./img/icon-thong.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">หน้าแรก</div>
+        </div>
+        <div class="iconlink" onClick="window.location='game.html';">
+          <div><img src="./img/icon-online.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">ลุ้นโชค</div>
+        </div>
+        <div class="iconlink" onClick="window.location='history.html';" style="background-color: #002d63;">
+          <div><img src="./img/icon-history.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">ประวัติ</div>
+        </div>
+        <div class="iconlink" onClick="window.location='rewards.html';">
+          <div><img src="./img/icon-gift.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">รางวัล</div>
+        </div>
+        <div class="iconlink" onClick="window.location='detail.html';">
+          <div><img src="./img/icon-detail.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">รายละเอียด</div>
+        </div>
+      </div>   
+   </div>
+  </div>
+
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo mr-auto"><a href="index.html"><span>LINE</span> Retail Society</a></h1>
+      <div class="mobile-nav-toggle d-lg-none" onclick="OpenPopMenu()">
+        <i class="icofont-navigation-menu"></i>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div style="margin-top:50px;"><center><img src="./img/didyouknow.png" class="img-read"></center></div>
+    <div class="GameDetail" style="margin:auto; padding-top:25px; padding-bottom: 20px; height: 100%; max-width: 500px;">
+      <center>
+        <div class="btn-1" style="margin-block: 20px;">เลือกอ่านประวัติความเป็นมา</div>
+        <div>
+          <img src="./img/menu-04.png" id="video1" onclick="Song1()" class="btn-menu" style="margin-right:6px; background: #0056ff;">
+          <img src="./img/menu-05.png" id="video2" onclick="Song2()" class="btn-menu" onclick="window.location.href='history.html#B';" style="background: #f68b1f;">
+        </div>
+        <div style="margin-top:9px; font-size: 12px; color:#fff;">คลิกเลือกรายการที่ต้องการ</div>
+      </center>
+
+      <div id="A"></div>
+      <center>
+        <div style="margin-top:40px;"><img src="./img/read-05.jpg" class="img-read"></div>
+      </center>
+      <div class="container">
+        <div class="text-read">ถึงช่วงปลายปีทีไร ชาวไทยเราก็มีเรื่องฉลองอีกแล้ว ไม่ว่าจะเป็นวันปีใหม่หรือวันคริสต์มาส แม้ว่าวันคริสต์มาสดูเหมือนจะไม่ค่อยเกี่ยวข้องกับคนไทยที่นับถือศาสนาพุทธสักเท่าไร แต่ก็มีคนไทยบางคนที่นับถือศาสนาคริสต์อยู่จำนวนไม่น้อย ว่าแต่ประวัติคริสต์มาสเป็นมาอย่างไร วันนี้เรามีข้อมูลมาฝาก<br><br></div>
+     </div>
+      <center>
+        <div class="btn-1">ตำนานวันคริสต์มาส</div>
+      </center>
+      <div class="container">
+        <div class="text-read">คำว่า "<b>คริสต์มาส</b>" เป็นคำทับศัพท์ภาษาอังกฤษว่า Christmas มาจากคำภาษาอังกฤษโบราณว่า Christes Maesse ที่แปลว่า "บูชามิสซาของพระคริสตเจ้า" ซึ่งพบครั้งแรกในเอกสารโบราณที่เป็นภาษาอังกฤษ ในปี ค.ศ. 1038 และในปัจจุบันคำนี้ก็ได้เปลี่ยนมาเป็นคำว่า Christmas<br><br>
+          เทศกาล Christmas หรือ X'Mas ตรงกับวันที่ 25 ธันวาคม ของทุกปี ซึ่งวันที่ 25 ธันวาคม เป็นวันประสูติของพระเยซู ศาสดาแห่งศาสนาคริสต์ โดยพระองค์ประสูติที่เมืองเบธเลเฮม และเติบโตที่เมืองนาซาเรท ซึ่งปัจจุบันคือประเทศอิสราเอล ตามหลักฐานในพระคัมภีร์ได้บันทึกไว้ว่า พระเยซูเจ้าประสูติในสมัยที่จักรพรรดิซีซาร์ออกุสตุส แห่งจักรวรรดิโรมัน ซึ่งรับสั่งให้จดทะเบียนสำมะโนครัวทั่วทั้งแผ่นดิน โดยฝ่ายคีรีนิอัส เจ้าเมืองซีเรีย ก็รับนโยบายไปปฏิบัติให้มีการจดทะเบียนสำมะโนครัวทั่วทั้งอาณาเขต แต่ในพระคัมภีร์ไม่ได้ระบุว่าพระเยซูประสูติวันหรือเดือนอะไร<br><br>ด้านนักประวัติศาสตร์ก็มีความเห็นที่ต่างออกไป โดยได้วิเคราะห์ว่า เดิมทีวันที่ 25 ธันวาคม เป็นวันที่จักรพรรดิเอาเรเลียนแห่งโรมัน กำหนดให้เป็นวันฉลองวันเกิดของสุริยเทพ ตั้งแต่ปี ค.ศ. 274 ชาวโรมันซึ่งส่วนใหญ่นับถือเทพเจ้า ฉลองวันนี้เสมือนว่าเป็นวันฉลองของพระจักรพรรดิไปในตัวด้วย เพราะจักรพรรดิก็เปรียบเสมือนดวงอาทิตย์ที่ให้ความสว่างแก่ชีวิตมนุษย์ แต่ชาวคริสต์ที่อยู่ในจักรวรรดิโรมัน รวมถึงชาวโรมันที่เปลี่ยนไปนับถือคริสต์ อึดอัดใจที่จะฉลองวันเกิดของสุริยเทพ จึงหันมาฉลองการบังเกิดของพระเยซู ซึ่งเปรียบเสมือนความสว่างของโลก และเหมือนดวงจันทร์เป็นความสว่างในตอนกลางคืนแทน หลังจากที่ชาวคริสต์ถูกควบคุมเสรีภาพทางศาสนาตั้งแต่ปี ค.ศ. 64-313 จนถึงวันที่ 25 ธันวาคม ปี ค.ศ. 330 ชาวคริสต์จึงเริ่มฉลองคริสต์มาสอย่างเป็นทางการและเปิดเผย
+          <br><br>เทศกาลคริสต์มาสจึงเป็นวันแห่งการเฉลิมฉลองวันประสูติของพระเยซู และเป็นการฉลองความรักที่พระเจ้ามีต่อมนุษย์โลก โดยส่งบุตรชายคือ "พระเยซู" ลงมาเกิดเป็นมนุษย์เพื่อช่วยไถ่บาป และช่วยให้มนุษย์รอดพ้นจากการทำชั่วนั่นเอง ดังนั้นในวันนี้ถือเป็นวันที่มีความหมายสำคัญต่อชาวคริสต์ทั่วโลก และมีการส่งบัตรอวยพร ให้ของขวัญ แก่กันและกัน รวมทั้งประดับประดาตกแต่งบ้านเรือนด้วยแสงไฟและต้นคริสต์มาสอย่างสวยงาม</div>
+     </div>
+      <center>
+        <div style="margin-top:10px;"><img src="./img/read-02.jpg" class="img-read"></div>
+      </center>
+
+      <div class="container">
+        <div class="text-read"><b>เพลงวันคริสต์มาส</b><br><br>
+         เพลงคริสต์มาสเริ่มมีขึ้นในศตวรรษที่ 5 แต่งโดยพระสงฆ์และฆราวาส มีเนื้อร้องเป็นภาษาละติน ลักษณะของเพลงเป็นแบบสง่า เน้นถึงความหมายของการเสด็จมาของพระเยซูเจ้า แต่ในศตวรรษที่ 12 ได้มีการแต่งในท่วงทำนองที่ร่าเริงสนุกสนานมากขึ้น เริ่มจากประเทศอิตาลี โดยนักบุญฟรังซิส อัสซีซี และนักบวชคณะฟรังซิสกัน เป็นผู้สนับสนุนให้มีเพลงคริสต์มาสแบบใหม่<br><br>เพลงคริสต์มาสแบบใหม่นี้เป็นที่ชื่นชอบของชาวบ้าน เพราะมีท่วงทำนองที่ร่าเริงกว่า และเน้นถึงความชื่นชมยินดีในโอกาสคริสต์มาส เพลงเหล่านี้มีทั้งที่เป็นภาษาละติน และภาษาพื้นเมือง เพลงหนึ่งที่แต่งในสมัยนั้น (แต่งคำร้องในปี ค.ศ. 1274) และยังใช้อยู่จนถึงปัจจุบันคือ เพลง Oh Come, All Ye Faithful หรือ Adeste Fideles ในภาษาละติน เพลงคริสต์มาสที่นิยมร้องมากที่สุดในปัจจุบันได้แต่งขึ้นในศตวรรษที่ 19 จากประเทศเยอรมนี และประเทศอังกฤษ เป็นส่วนใหญ่ เพลงที่มีชื่อเสียงมาก ได้แก่ เพลง Silent Night, Holy Night<br><br>ความเป็นมาของเพลงนี้มาจากวันก่อนวันฉลองคริสต์มาสของปี ค.ศ. 1818 คุณพ่อโจเซฟ โมห์ (Joseph Mohr) เจ้าอาวาสวัดที่โอเบิร์นดอฟ (Oberndorf) ประเทศออสเตรีย ได้ข่าวว่าออร์แกนในวัดเสีย ทำให้วงขับร้องไม่สามารถร้องเพลงตามที่ซ้อมไว้ได้ จึงมีการแต่งเพลงคริสต์มาสใหม่ นำไปให้เพื่อนชื่อ ฟรานซ์ กรูเบอร์ (Franz Gruber) ใส่ทำนองในคืนวันที่ 24 นั่นเอง และเล่นเพลง Silent Night เป็นครั้งแรก โดยมีการเล่นกีตาร์ประกอบการขับร้อง ซึ่งกลายเป็นเพลงที่นิยมมากที่สุดทั่วโลก
+        </div>
+      </div>
+      <center>
+        <div style="margin-top:10px;"><img src="./img/read-03.jpg" class="img-read"></div>
+      </center>
+
+      <div class="container">
+        <div class="text-read"><b>สีประจำวันคริสต์มาส</b><br><br> <u>สีแดง</u> : เป็นสีของผลฮอลลี่ หรือซานตาคลอส เป็นสีของเดือนธันวาคม ที่แสดงถึงความตื่นเต้น และหากเป็นสัญลักษณ์ตามศาสนา สีแดงจะหมายถึง ไฟ, เลือด และความโอบอ้อมอารี<br><br><u>สีเขียว</u> : เป็นสีของต้นไม้ สัญลักษณ์ของธรรมชาติ หมายถึง ความอ่อนเยาว์และความหวังที่จะมีชีวิตเป็นนิรันดร์ เปรียบได้กับว่าเทศกาลคริสต์มาสคือเทศกาลแห่งความหวัง<br><br><u>สีขาว</u> : เป็นสีของหิมะ และเป็นสัญลักษณ์ทางศาสนา คือ แสงสว่าง ความบริสุทธิ์ ความสุข และความรุ่งเรือง สีขาวนี้จะปรากฏบนเสื้อคลุมนางฟ้า เคราและชายเสื้อของซานตาคลอส<br><br><u>สีทอง</u> : เป็นสีของเทียนและดวงดาว เป็นสัญลักษณ์ของแสงอาทิตย์และความสว่างไสว
+        </div>
+      </div>
+      <center>
+        <div style="margin-top:10px;"><img src="./img/read-04.jpg" class="img-read"></div>
+      </center>
+
+      <div class="container">
+        <div class="text-read"><b>ของขวัญวันคริสต์มาส</b><br><br>การแลกเปลี่ยนของขวัญในวันคริสต์มาสนั้นเริ่มต้นจากเมือง Saturnalia ในช่วงยุคโรมัน ต่อมาชาวคริสต์รับประเพณีนี้เข้ามา ด้วยความเชื่อว่า การให้ของขวัญนี้มีความเกี่ยวเนื่องกับของขวัญประเภททอง ยางสนที่มีกลิ่นหอม และยางไม้หอม ซึ่งพวกนักเวทย์จากตะวันออกที่เดินทางมาคารวะพระเยซูคริสต์นำมาให้ตอนที่ท่านประสูติ<br>ทั้งหมดนั้นก็คือการเฉลิมฉลองให้กับพระเยซู ที่เกิดมาเพื่อชำระบาปให้แก่ชาวคริสต์ทั้งหลาย และเป็นเทศกาลที่นำความสุข สนุกสนาน มาสู่หมู่มวลมนุษย์<br><br>
+        </div>
+      </div>
+      <div id="B"></div>
+      <hr>
+      <center>
+        <div style="margin-top:-20px;"><img src="./img/read-06.jpg" class="img-read"></div>
+        <div class="btn-1" style="margin-top:35px;">ความเป็นมาวันขึ้นปีใหม่</div>
+     </center>
+
+      <div class="container">
+        <div class="text-read">ความหมายของวันขึ้นปีใหม่ ความเป็นมาวันขึ้นปีใหม่ เป็นวันที่ 1 มกราคม เหตุผลความเปลี่ยนแปลงจาก 1 เมษายน และทุกปีจะมีการส่งคำอวยพรปีใหม่ ให้กับเพื่อนๆ ญาติ พี่น้อง ครูอาจารย์ หรือ หัวหน้างาน ซึ่งสามารถนำไปใช้เขียนการ์ดอวยพรให้กับคนที่รัก ได้ในทุกงานปีใหม่ และ ทุกโอกาส<br><br></div>
+        <div class="text-read"><b>ความหมายของวันปีใหม่</b><br><br>ความหมายของวันขึ้นปีใหม่ ตามพจนานุกรม ฉบับราชตบัณฑิตยสถาน ให้ความหมายของคำว่า " ปี" ไว้ดังนี้ ปี หมายถึง เวลา ชั่วโลกโคจรรอบดวงอาทิตย์ครั้งหนึ่งราว 365 วัน : เวลา 12 เดือนตามสุริยคติ</div>
+        <div class="text-read"><b>ความเป็นมาวันขึ้นปีใหม่</b><br><br>ในอดีต วันขึ้นปีใหม่ของไทยได้มีการเปลี่ยนแปลงมาแล้ว 4 ครั้งคือ ครั้งแรกถือเอาวันแรม 1 ค่ำ เดือนอ้าย เป็นวันขึ้นปีใหม่ซึ่ง ตรงกับเดือนมกราคม ครั้งที่ 2 กำหนดให้วันขึ้นปีใหม่ตรงกับวันขึ้น 1 ค่ำ เดือน 5 ตามคติพราหมณ์ ซึ่งตรงกับเดือนเมษายน<br><br>การกำหนดวันขึ้นปีใหม่ใน 2 ครั้งนี้ ถือเอาทางจันทรคติเป็นหลัก ต่อมาได้ถือเอาทางสุริยคติแทน โดยกำหนดให้วันที่ 1 เมษายน เป็นวันขึ้นปีใหม่ ตั้งแต่ พ.ศ.2432 เป็นต้นมา<br><br>อย่างไรก็ตาม ประชาชนส่วนใหญ่โดยเฉพาะตามชนบทยังคงยึดถือเอาวันสงกรานต์เป็นวันขึ้นปีใหม่อยู่ ต่อมาเมื่อมีการเปลี่ยนแปลงการปกครองมาเป็นระบอบประชาธิปไตย ทางราชการเห็นว่าวันขึ้นปีใหม่วันที่ 1 เมษายน ไม่สู้จะมีการรื่นเริงอะไรมากนัก สมควรที่จะฟื้นฟูขึ้นมาใหม่ จึงได้ประกาศให้มีงานรื่นเริงวันขึ้นปีใหม่ในวันที่ 1 เมษายน 2477 ขึ้นในกรุงเทพฯเป็นครั้งแรก<br><br>การจัดงานวันขึ้นปีใหม่ที่ได้เริ่มเมื่อวันที่ 1 เมษายน ได้แพร่หลายออกไปต่างจังหวัดในปีต่อๆ มา และในปี พ.ศ.2479 ก็ได้มีการจัดงานรื่นเริงปีใหม่ทั่วทุกจังหวัด วันขึ้นปีใหม่วันที่ 1 เมษายน ในสมัยนั้นทางราชการเรียกว่า วันตรุษสงกรานต์<br><br>ต่อมาได้มีการพิจารณาเปลี่ยนวันขึ้นปีใหม่อีกครั้งหนึ่ง โดยคณะรัฐมนตรีได้แต่งตั้งคณะกรรมการขึ้น ซึ่งมีหลวงวิจิตรวาทการเป็นประธานกรรมการ ที่ประชุมมีมติเป็นเอกฉันท์ให้เปลี่ยนวันขึ้นปีใหม่เป็นวันที่ 1 มกราคม โดยกำหนดให้วันที่ 1 มกราคม 2484 เป็น วันขึ้นปีใหม่เป็นต้นไป</div>
+
+        <div class="text-read"><b>เหตุผลที่ทางราชการได้เปลี่ยนวันขึ้นปีใหม่จากวันที่ 1 เมษายนมาเป็นวันที่ 1 มกราคม ก็คือ</b><br><br>
+          <ul>
+            <li>ไม่ขัดกับพุทธศาสนาในด้านการนับวัน เดือน และการร่วมฉลองปีใหม่ด้วยการทำบุญ</li>
+            <li>เป็นการเลิกวิธีนำเอาลัทธิพราหมณ์มาคร่อมพระพุทธศาสนา</li>
+            <li>ทำให้เข้าสู่ระดับสากลที่ใช้อยู่ในประเทศทั่วโลก</li>
+            <li>เป็นการฟื้นฟูวัฒนธรรม คตินิยม และจารีตประเพณีของชาติไทย</li>
+          </ul>
+          <br>
+        </div>
+      </div>
+      <center>
+        <div style="margin-top:-20px;"><img src="./img/read-07.jpg" class="img-read"></div>
+      </center>
+
+      <div class="container">
+        <div class="text-read"><b>กิจกรรมที่ชาวไทยส่วนใหญ่มักจะยึดถือปฏิบัติในวันขึ้นปีใหม่ได้แก่</b><br><br>
+          <ul>
+            <li>การทำบุญตักบาตร โดยอาจตักบาตรที่บ้าน หรือไปที่วัดหรือตามสถานที่ต่างๆที่ทางราชการเชิญชวนไปร่วมทำบุญ</li>
+            <li>การกราบขอพรจากผู้ใหญ่ และอวยพรเพื่อนฝูง การมอบของขวัญ การมอบช่อดอกไม้ หรือการส่งบัตรอวยพร</li>
+            <li>การจัดงานรื่นเริง การจัดเลี้ยงในหมู่เพื่อนฝูง ญาติพี่น้องหรือตามหน่วยงานต่างๆ</li>
+          </ul>
+          <br>วันขึ้นปีใหม่นับเป็นโอกาสดีที่จะทำให้เราได้ทบทวนถึงการดำเนินชีวิตในอดีต เพื่อจะได้แก้ไขข้อบกพร่องที่เกิดขึ้นในอดีตให้ดีขึ้น
+          <br><br>วันที่ 1 มกราคมของทุกปี จะมีการทำบุญตักบาตรและอุทิศส่วนกุศลผู้ที่ล่วงลับไปแล้ว ฟังเทศน์ ปล่อยปลา ปล่อยนก อวยพรซึ่งกันและกัน หรืออาจจะส่งการ์ดบัตรอวยพร ของขัวญไหว้ผู้ใหญ่เพื่อรับพร และสรงน้ำพระพุทธรูป ประดับธงชาติ และจะเตรียมทำความสะอาดบ้าน และที่พักอาศัย
+        </div>
+      </div>
+      <div class="container">
+        <div class="text-read"><br><br>ขอขอบคุณข้อมูลจาก<br>wikipedia.org, ru.ac.th, educatepark.com, kapook.com</div>
+      </div>
+    </div>
+    <div class="clr" style="height: 60px;"></div>
+  </main>
+
+  <div id="menu" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4 bg-menu">
+      <div class="w3-container" style="min-height:300px;width:100%;text-align:center;padding:0px;margin-bottom: 20px;background-color: #00ae3d;">
+        <div id="MenuSociety"></div>
+      </div>
+    </div>
+    <div class="clr" style="height:40px;"></div>
+  </div>
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+
+  <script src="./assets/js/main.js"></script>
+  <script src="./js/connect.js"></script>
+  <script src="./js/menu.js"></script>
+  <script src="./js/history.js"></script>
+
+  <!--
+  <script src="js/connect.js"></script>
+  <script src="js/home.js"></script>
+-->
+</body>
+</html>

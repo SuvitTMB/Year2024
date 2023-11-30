@@ -1,0 +1,344 @@
+<!--
+  https://theoldsiam.co.th/loykrathong
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>LINE Retail Society</title>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PW7HPDW');</script>
+  <!-- Favicons -->
+  <link href="assets/img/favicom.ico" rel="icon">
+  <link rel="stylesheet"
+  href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"/>
+  <!-- Google Fonts -->
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/button.css" rel="stylesheet">
+  <link href="assets/css/css.css" rel="stylesheet">
+  <link href="assets/css/w3.css" rel="stylesheet">
+  <link href="assets/css/moon.css" rel="stylesheet">
+  <link href="assets/css/hand.css" rel="stylesheet">
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+<!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.8/countUp.umd.min.js"></script>
+-->
+  <script type="text/javascript">
+      var speed=60; // lower number for faster
+      var flakes=100; // number of flakes
+      var colour="#fff"; // colour of flakes
+      var slush=20; // set to '0' for no slush or otherwise set to height at which slush melts
+      var flks=new Array();
+      var flkx=new Array();
+      var flky=new Array();
+      var fldy=new Array();
+      var slss=new Array();
+      var slsh=new Array();
+      var swide, shigh, boddie;
+      window.onload=function() { if (document.getElementById) {
+        boddie=document.createElement("div");
+        boddie.style.position="fixed";
+        boddie.style.top="0px";
+        boddie.style.left="0px";
+        boddie.style.width="1px";
+        boddie.style.height="1px";
+        boddie.style.overflow="visible";
+        boddie.style.backgroundColor="transparent";
+        document.body.appendChild(boddie);
+        set_width();
+        for (var i=0; i<flakes; i++) {
+          flks[i]=createDiv(3, 3, colour);
+          flkx[i]=3*Math.floor(Math.random()*swide/3);
+          flky[i]=Math.floor(Math.random()*shigh);
+          fldy[i]=2+Math.floor(Math.random()*4);
+          flks[i].style.left=flkx[i]+"px";
+          flks[i].style.top=flky[i]+"px";
+          boddie.appendChild(flks[i]);
+        }
+        setInterval("let_it_snow()", speed);
+      }}
+      function createDiv(height, width, colour) {
+        var div=document.createElement("div");
+        div.style.position="absolute";
+        div.style.height=height+"px";
+        div.style.width=width+"px";
+        div.style.overflow="hidden";
+        div.style.backgroundColor=colour;
+        return (div);
+      }
+      window.onresize=set_width;
+      function set_width() {
+        var sw_min=999999;
+        var sh_min=999999;
+        if (document.documentElement && document.documentElement.clientWidth) {
+          if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+          if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+        }
+        if (typeof(self.innerWidth)!="undefined" && self.innerWidth) {
+          if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+          if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+        }
+        if (document.body.clientWidth) {
+          if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+          if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+        }
+        if (sw_min==999999 || sh_min==999999) {
+          sw_min=800;
+          sh_min=600;
+        }
+        swide=sw_min-3;
+        shigh=sh_min+400;
+        if (slush) {
+          if (swide/3>slss.length) for (i=slss.length; i<swide/3; i++) {
+            if (!slsh[i]) slsh[i]=3;
+            slss[i]=createDiv(slsh[i], 3, colour);
+            boddie.appendChild(slss[i]);
+          }
+          for (i=0; i<swide/3; i++) {
+            slss[i].style.height=slsh[i]+"px";
+            slss[i].style.top=shigh-slsh[i]+"px";
+            slss[i].style.left=3*i+"px";
+          }
+          if (i<slss.length && slss[i].style.left!="-3px") for (; i<slss.length; i++) slss[i].style.left="-3px";
+        }
+      }
+      function let_it_snow(c) {
+        var i, x, o=0, z=0;
+        for (i=0; i<flakes; i++) {
+          flky[i]+=fldy[i];
+       x=Math.floor(flkx[i]/3);
+          if (slush) {
+            o+=slsh[x];
+            if (flky[i]>=shigh-slsh[x]) {
+              if (x<swide && slsh[x]>slsh[x+1]+3) x++;
+              else if (x>0 && slsh[x]>slsh[x-1]+3) x--;
+              slss[x].style.top=shigh-(slsh[x]+=3)+"px";
+              slss[x].style.height=slsh[x]+"px";
+        flky[i]=shigh;
+         }
+          }
+          if (flky[i]>=shigh || flkx[i]>swide) {
+         flky[i]=0;
+         fldy[i]=2+Math.floor(Math.random()*4);
+         flkx[i]=3*Math.floor(Math.random()*swide/3);
+         flks[i].style.left=flkx[i]+"px";
+         z++;
+       }
+       flks[i].style.top=flky[i]+"px";
+        }
+        if (o>flakes*slush) for (i=0; i<slsh.length; i++) if (slsh[i]>3) slsh[i]--;
+        if (z || o>flakes*slush) set_width();
+      }
+  </script>
+</head>
+
+<body style="background-color: #cf292f;">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW7HPDW"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div class="navbar1" style="background: #ffd2d2;">
+    <div style="background: #003cb2; height: 75px;border-top: 1px solid #fff;">
+      <div style="max-width: 400px; margin:auto; text-align: center;">
+        <div class="iconlink" onClick="window.location='home.html';">
+          <div><img src="./img/icon-thong.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">หน้าแรก</div>
+        </div>
+        <div class="iconlink" onClick="window.location='game.html';">
+          <div><img src="./img/icon-online.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">ลุ้นโชค</div>
+        </div>
+        <div class="iconlink" onClick="window.location='history.html';">
+          <div><img src="./img/icon-history.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">ประวัติ</div>
+        </div>
+        <div class="iconlink" onClick="window.location='rewards.html';">
+          <div><img src="./img/icon-gift.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">รางวัล</div>
+        </div>
+        <div class="iconlink" onClick="window.location='detail.html';">
+          <div><img src="./img/icon-detail.png" style="width:25px;"></div>
+          <div style="font-size: 11px;">รายละเอียด</div>
+        </div>
+      </div>   
+   </div>
+  </div>
+
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo mr-auto"><a href="index.html"><span>LINE</span> Retail Society</a></h1>
+      <div class="mobile-nav-toggle d-lg-none" onclick="OpenPopMenu()">
+        <i class="icofont-navigation-menu"></i>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="StartKrathong">
+    <div id="CreateKathong" style="display:block;">
+      <div style="width:100%; height: 100%; margin:50px auto 0px auto; max-width: 500px;">
+        <div id="ShowDisplay"></div>
+      </div>
+      <div id="OpenKrathong" class="GameDetail1" style="display: none;">
+        <center>
+          <div style="width:95%; max-width: 500px; margin:5px auto 15px auto;">
+            <a href="javascript:playSound('RandomSound');">
+            <div class="box_gift2" onclick="StartKrathong()" style="margin-top:30px;">
+              <img src="./img/icon-select.png" style="width:100px;padding:10px;"><br>คลิกเพื่อเริ่มสร้างกระทงของคุณ
+            </div>
+            </a>
+          </div>
+          <div class="clr" style="height: 75px; background: #000;"></div>
+        </center>
+      </div>
+    </div>
+    <div id="DisplayKrathong" class="GameDetail1" style="display: none;">
+      <center>
+        <div class="clr"></div>
+        <div id="GoKathong" style="display: none;">
+          <div style="line-height: 1.3; color:#fff; margin-bottom:-10px; margin-top:0px;">การ์ดอวยพรปีใหม่ พร้อมที่จะส่งแล้ว !!!<br>คลิกเพื่อส่งการ์ดเลย ....</div>
+          <div class="btn-t2" onclick="ChangeMap()" style="padding:10px 20px; background: #ff0000; color:#fff;">แก้ไขใหม่</div>
+          <div class="btn-t3" onclick="BeforeSend()" style="padding:9px 20px; background: green; color:#fff;">ส่งการ์ดอวยพร</div>
+          <!-- EndKrathong() -->
+        </div>
+        <div class="clr"></div>
+        <div id="DisplaySelect" style="margin-top:-95px;"></div>
+      </center>
+      <div style="margin-top:12px;"><img src="./img/bg-santa.png" style="width:100%;"></div>
+    </div>
+    <div class="clr" style="height: 53px;"></div>
+  </main>
+
+
+  <main id="PlayKrathong" style="display: none;">
+    <div id="SentKrathong"></div>
+  </main>
+
+  <div id="id01" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4">
+      <div class="w3-container" style="min-height:300px;padding:5px;width:100%;text-align:center;background:#8396aa;border-radius: 20px;">
+        <div class="btn-1" style="margin-top:25px; margin-bottom: 15px; background: #57728e;">เลือกกระทงของคุณ</div>
+        <div id="DisplaySelect1"></div>
+        <div class="btn-t2" onclick="CloseAll()" style="margin:15px auto 15px auto;">ปิดหน้าต่าง</div>
+        <div class="clr" style="height: 10px;"></div>
+      </div>
+    </div>
+    <div class="clr" style="height: 70px;"></div>
+  </div>
+
+  <div id="id02" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4">
+      <div class="w3-container" style="min-height:300px;padding:5px;width:100%;text-align:center;background:#ed121a;border-radius: 20px;">
+        <div class="btn-1" style="margin-top:25px; margin-bottom: 15px; background: #d3161c;">ข้อความอวยพรปีใหม่</div>
+        <div id="DisplaySelect2"></div>
+        <div class="btn-t2" onclick="CloseAll()" style="margin:0px auto 15px auto;">เลือกข้อความนี้</div>
+        <div class="clr" style="height: 10px;"></div>
+      </div>
+    </div>
+    <div class="clr" style="height: 70px;"></div>
+  </div>
+
+  <div id="id03" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4">
+      <div class="w3-container" style="min-height:300px;padding:5px;width:100%;text-align:center;background:#1d62eb;border-radius: 20px;">
+        <div class="btn-1" style="margin-top:25px; margin-bottom: 15px; background: #0a4fd7;">ส่งคำอวยพรให้ใครดีน้า !!!</div>
+        <div id="DisplaySelect3"></div>
+        <div class="btn-t2" onclick="SelectMeOnly()" style="margin:15px auto 15px auto; background: #12cd02; color:#fff; border:2px solid #fff;">ส่งให้ทุกคน</div>
+        <div class="btn-t2" onclick="CloseAll()" style="margin:15px auto 15px auto; background: #ff0307; color:#fff; border:2px solid #fff;">เลือกส่งคนนี้</div>
+        <div class="clr" style="height: 10px;"></div>
+      </div>
+    </div>
+    <div class="clr" style="height: 70px;"></div>
+  </div>
+
+  <div id="id04" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4">
+      <div class="w3-container" style="min-height:300px;padding:5px;width:100%;text-align:center;background:#00ae3d;border-radius: 20px;">
+        <div class="btn-1" style="margin-top:25px; margin-bottom: 15px; background: #029636;">เลือกการ์ดปีใหม่</div>
+        <div id="DisplaySelect4"></div>
+        <div class="btn-t2" onclick="CloseAll()" style="margin:15px auto 15px auto;">ปิดหน้าต่าง</div>
+        <div class="clr" style="height: 10px;"></div>
+      </div>
+    </div>
+    <div class="clr" style="height: 70px;"></div>
+  </div>
+
+  <div id="id05" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4" style="background:none;">
+      <div id="BeforeSend"></div>
+    </div>
+    <div class="clr" style="height: 70px;"></div>
+  </div>
+
+  <div id="menu" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4 bg-menu">
+      <div class="w3-container" style="min-height:300px;width:100%;text-align:center;padding:0px;margin-bottom: 20px;background-color: #00ae3d;">
+        <div id="MenuSociety"></div>
+      </div>
+    </div>
+    <div class="clr" style="height:40px;"></div>
+  </div>
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <script type="text/javascript">
+    $("body").on("click", ".playSound", function() {
+      $('audio').each(function(){
+          this.pause(); // Stop playing
+          this.currentTime = 0; // Reset time
+      }); 
+      $('.audio-examples-wrap').find('button').removeClass('stopSound is-selected').addClass('playSound')
+      $(this).addClass('stopSound is-selected').removeClass('playSound')
+        var id = $(this).attr('data-id')
+        document.getElementById(id).play();
+    });
+    $("body").on("click", ".stopSound", function() {
+      $(this).addClass('playSound').removeClass('stopSound')
+      var id = $(this).attr('data-id')
+      document.getElementById(id).pause()  
+      document.getElementById(id).currentTime = 0;
+    });
+  </script>
+
+  <audio id="RandomSound" src="./mp3/we-wish-you-a-merry-christmas.mp3" preload="auto"></audio>
+
+  <!-- Vendor JS Files #dde7f0-->
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+
+  <script src="./assets/js/main.js"></script>
+  <script src="./js/connect.js"></script>
+  <script src="./js/online.js"></script>
+  <script src="./js/menu.js"></script>
+
+<!--
+  <script>
+    function blink_text() {
+      $('.blink').fadeOut(700);
+        $('.blink').fadeIn(700);
+    }
+    setInterval(blink_text, 600);
+  </script>
+-->
+</body>
+</html>
