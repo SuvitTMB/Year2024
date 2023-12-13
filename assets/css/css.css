@@ -1881,7 +1881,10 @@ table.dataTable thead th, table.dataTable thead td {
 
 .img-sendcard {
   position: absolute; bottom:0px; margin:auto; width:100%; background:#10d100; padding:15px; opacity:.9;
-  border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; text-align: center;
+  /*
+  border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; 
+  */
+  text-align: center;
 }
 
 .img-showtext {
