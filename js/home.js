@@ -26,6 +26,7 @@ function OpenMP4() {
   var video = document.querySelector("#video");
   video.pause();
   video.currentTime = 0;
+
   /*
   if(sessionStorage.getItem("DisplayVideo")==null) { 
     sessionStorage.setItem("DisplayVideo", 'Video');
