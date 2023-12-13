@@ -212,11 +212,9 @@ function Song1() {
   video.currentTime = 0;
 
   //CloseVDO();
-  /*
   var vid = document.getElementById("myaudio1");
   vid.autoplay = true;
   vid.load();
-  */
   document.getElementById('id03').style.display='none';
   //window.location.href='history.html#A';
 }
