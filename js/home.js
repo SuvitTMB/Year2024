@@ -12,8 +12,8 @@ $(document).ready(function () {
   Connect_DB();
   dbGiftRewards = firebase.firestore().collection("GiftNewYear2567");
   dbCardNewyear = firebase.firestore().collection("NewyearCard2567");
-  if(sessionStorage.getItem("DisplayDemo")==null) { 
-    sessionStorage.setItem("DisplayDemo", 'Video');
+  if(sessionStorage.getItem("DisplayDemo1")==null) { 
+    sessionStorage.setItem("DisplayDemo1", 'Video');
     document.getElementById('id03').style.display='block';
   }
   OpenMP4();
