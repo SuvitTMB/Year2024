@@ -42,6 +42,19 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js'></script>
   <script src="https://tmbbank.sharepoint.com/:u:/r/sites/KM/registration/SiteAssets/Wifi/wifi.js?csf=1&web=1&e=xQVcff"></script>
 -->
+<style type="text/css">
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  max-width: 400px;
+  position: relative;
+}  
+</style>
+
   <script type="text/javascript">
       var speed=60; // lower number for faster
       var flakes=100; // number of flakes
@@ -151,7 +164,7 @@
   </script>
 </head>
 
-<body style="background-color: #00ae3d;">
+<body style="background-color: #00ae3d;height: 90vh;">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PW7HPDW"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -247,19 +260,26 @@
       <div id="DisplayCard" style="background: #000;"></div>
     </div>
     <center>
-      <!--
-      <div class="btn-t2" onclick="download()" style="margin:20px auto 15px auto;">Download</div>
-      -->
-      <div class="btn-t2" onclick="CloseAll()" style="margin:20px auto 15px auto;">ปิดหน้าต่าง</div>
+    <div class="btn-t2" onclick="CloseAll()" style="margin:20px auto 15px auto;">ปิดหน้าต่าง</div>
     </center>
     <div class="clr" style="height: 70px;"></div>
   </div>
 
   <div id="id03" class="w3-modal w3-animate-opacity">
-    <div class="w3-modal-content w3-card-4" style="background: #000103; max-width: 400px;">
+    <div class="w3-modal-content w3-card-4" style="background: #003998; max-width: 400px;">
+      <div style="margin-top:40px;margin-bottom: 30px;">
+        <center>
+          <div><img src="./img/bg-header.png" style="width:200px;margin:15px auto;"></div>
+          <video id="video" width="100%" controls="controls" autoplay>
+            <source src="./mp3/MVNewyear.mp4" type="video/mp4">
+          </video>        
+        </center>
+      </div>
+<!--
       <div style="margin-top:40px; margin-bottom: 20px;">
         <img src="./img/eacrd.jpg" style="width:100%; border-radius: 15px;">        
       </div>
+-->
       <center>
         <div class="btn-t2" onclick="GotoGame()" style="width:37%; background: #12cd02; color:#fff; border:2px solid #fff; margin-right: 3px;">ลุ้นของรางวัล</div>
         <div class="btn-t2" onclick="GotoCard()" style="width:37%; color:#fff; background: #ff0307; border:2px solid #fff; margin-right: 3px;">ส่งการ์ดปีใหม่</div>
