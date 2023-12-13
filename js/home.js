@@ -12,6 +12,10 @@ $(document).ready(function () {
   Connect_DB();
   dbGiftRewards = firebase.firestore().collection("GiftNewYear2567");
   dbCardNewyear = firebase.firestore().collection("NewyearCard2567");
+  if(sessionStorage.getItem("DisplayDemo")==null) { 
+    sessionStorage.setItem("DisplayDemo", 'Video');
+    document.getElementById('id03').style.display='block';
+  }
   OpenMP4();
   //StartGame();LoyKrathong
   //CheckSelect();
@@ -28,10 +32,6 @@ function OpenMP4() {
     document.getElementById('id03').style.display='block';
   }
   */
-  //if(sessionStorage.getItem("DisplayDemo")==null) { 
-    //sessionStorage.setItem("DisplayDemo", 'Video');
-    document.getElementById('id03').style.display='block';
-  //}
   CountCard();
   DisplayUser();
 }
